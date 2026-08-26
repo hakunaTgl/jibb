@@ -1,6 +1,16 @@
-"""Jibb project-management utilities."""
+"""Jibb project-management automation toolkit."""
 
+from .agent import ProjectInsight, analyze_project, bootstrap_project
 from .core import Project, Task, TaskStatus
+from .storage import JibbStore
 
-__all__ = ["Project", "Task", "TaskStatus"]
-__version__ = "0.1.0"
+__all__ = [
+    "Project",
+    "Task",
+    "TaskStatus",
+    "JibbStore",
+    "ProjectInsight",
+    "analyze_project",
+    "bootstrap_project",
+]
+__version__ = "0.2.0"
