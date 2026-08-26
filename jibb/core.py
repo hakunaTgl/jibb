@@ -23,6 +23,7 @@ class Task:
     priority: int = 3
     due_date: date | None = None
     notes: str = ""
+    id: int | None = None
 
     def __post_init__(self) -> None:
         self.title = self.title.strip()
@@ -46,6 +47,7 @@ class Task:
 class Project:
     name: str
     tasks: list[Task] = field(default_factory=list)
+    id: int | None = None
 
     def add(self, task: Task) -> Task:
         self.tasks.append(task)
@@ -53,6 +55,12 @@ class Project:
 
     def extend(self, tasks: Iterable[Task]) -> None:
         self.tasks.extend(tasks)
+
+    def task(self, task_id: int) -> Task:
+        for task in self.tasks:
+            if task.id == task_id:
+                return task
+        raise KeyError(f"Task not found: {task_id}")
 
     @property
     def completion_percent(self) -> float:
@@ -62,6 +70,7 @@ class Project:
 
     def summary(self) -> dict:
         return {
+            "id": self.id,
             "name": self.name,
             "tasks": len(self.tasks),
             "completed": sum(task.complete for task in self.tasks),
